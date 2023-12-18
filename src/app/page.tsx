@@ -1,10 +1,10 @@
 "use client";
-import { generateAccessToken } from "@/generateAccessToken";
+
 import { generateRoomId } from "@/generateRoomID";
 import { useState } from "react";
+import { Button } from "./Button";
 
 export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
 
 export default function Component() {
   const [roomID, setRoomID] = useState("");
@@ -15,19 +15,18 @@ export default function Component() {
       <div className="w-full max-w-3xl p-4 bg-white rounded-lg shadow">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl text-center w-full text-black font-bold">
-            Huddle01 Simulator
+            Token Simulator
           </h2>
         </div>
         <div className="mt-8">
-          <button
-            className="w-full h-12 bg-blue-500 text-white rounded-md"
+          <Button
             onClick={async () => {
               const roomID = await generateRoomId();
               setRoomID(roomID);
             }}
           >
             Generate RoomID
-          </button>
+          </Button>
         </div>
         <div className="mt-4 p-4 bg-gray-200 rounded-md">
           <div className="flex items-center justify-between">
@@ -43,16 +42,14 @@ export default function Component() {
           </div>
         </div>
         <div className="mt-8">
-          <button
-            className="w-full h-12 bg-green-500 text-white rounded-md"
+          <Button
             onClick={async () => {
-              const accessToken = await generateAccessToken(roomID);
-              console.log(accessToken);
-              setAccessToken(accessToken);
+              const accessToken = await fetch(`/api?roomId=${roomID}`);
+              setAccessToken(await accessToken.text());
             }}
           >
             Generate AccessToken
-          </button>
+          </Button>
         </div>
         <div className="mt-4 p-4 bg-gray-200 rounded-md">
           <div className="flex">
