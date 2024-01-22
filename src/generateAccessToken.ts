@@ -3,7 +3,7 @@ import { AccessToken, Role } from "@huddle01/server-sdk/auth";
 
 export const generateAccessToken = async (roomId: string) => {
   const accessToken = new AccessToken({
-    apiKey: process.env.API_KEY!,
+    apiKey: process.env.API_KEY || "",
     roomId: roomId,
     role: Role.HOST,
     permissions: {

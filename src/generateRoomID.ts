@@ -1,6 +1,8 @@
 "use server";
 
-export const generateRoomId = async () => {
+export const generateRoomId = async (apiKey: string) => {
+  if (!apiKey) throw new Error("apiKey is required");
+
   const response = await fetch("https://api.huddle01.com/api/v1/create-room", {
     method: "POST",
     body: JSON.stringify({
@@ -8,7 +10,7 @@ export const generateRoomId = async () => {
     }),
     headers: {
       "Content-type": "application/json",
-      "x-api-key": process.env.API_KEY!,
+      "x-api-key": apiKey,
     },
     cache: "no-cache",
   });
