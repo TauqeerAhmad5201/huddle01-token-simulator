@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huddle-token
+  labels:
+    app: huddle-token
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: huddle-token
+  template:
+    metadata:
+      labels:
+        app: huddle-token
+    spec:
+      containers:
+      - name: huddle-token
+        image: tauqeerops/huddle01-token-simulator:latest
+        ports:
+        - containerPort: 3000
